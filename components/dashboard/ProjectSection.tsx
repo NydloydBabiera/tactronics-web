@@ -92,7 +92,7 @@ export default function ProjectSection() {
               <div className="flex flex-col gap-2">
                 <span className="text-lg font-semibold text-sky-700">{project.name}</span>
                 <span className="text-sm text-slate-700">
-                  Tap to preview the project PDF in a floating viewer.
+                  Tap to view project overview.
                 </span>
               </div>
             </button>
@@ -101,9 +101,9 @@ export default function ProjectSection() {
       </div>
 
       {activeProject ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6 sm:px-6">
+        <div className="fixed inset-0 z-50 overflow-auto px-4 py-4 sm:px-6">
           <div className="absolute inset-0 backdrop-blur-sm" />
-          <div className="relative mx-auto w-full max-w-6xl overflow-hidden rounded-4xl border shadow-2xl shadow-slate-950/40">
+          <div className="relative mx-auto w-full max-w-6xl max-h-[calc(100vh-2rem)] overflow-hidden rounded-4xl border shadow-2xl shadow-slate-950/40 bg-white">
             <div className="flex flex-col gap-4 border-b bg-sky-700 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm uppercase tracking-[0.3em] text-white">Preview</p>
@@ -112,16 +112,16 @@ export default function ProjectSection() {
               <button
                 type="button"
                 onClick={() => setActiveProject(null)}
-                className="inline-flex items-center justify-center rounded-full border  px-4 py-2 text-sm font-medium text-white transition hover:border-sky-300/40 hover:bg-slate-800/90"
+                className="inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-medium text-white transition hover:border-sky-300/40 hover:bg-slate-800/90"
               >
                 Close
               </button>
             </div>
-            <div className="min-h-[65vh] w-full bg-white/80">
+            <div className="h-[calc(100vh-14rem)] max-h-[calc(100vh-14rem)] w-full bg-white/80 sm:h-[calc(100vh-15rem)] sm:max-h-[calc(100vh-15rem)]">
               <iframe
                 src={getPdfUrl(activeProject.pdfPath)}
                 title={`${activeProject.name} PDF preview`}
-                className="h-[65vh] w-full border-0"
+                className="h-full w-full border-0"
                 loading="lazy"
               />
             </div>
