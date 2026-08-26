@@ -10,12 +10,13 @@ const services = [
 
 const ServiceList = () => {
   return (
-    <div className="animate-float-up w-full rounded-3xl border border-slate-200 bg-white/80 p-8 shadow-xl shadow-slate-200/30 backdrop-blur-lg dark:border-slate-700/60 dark:bg-slate-900/80 dark:shadow-slate-950/40">
-      <h2 className="text-3xl sm:text-4xl font-semibold text-sky-700 mb-6">Services Offered</h2>
-      <ul className="space-y-4 text-left text-base sm:text-lg text-slate-700 dark:text-slate-200">
-        {services.map((service) => (
-          <li key={service} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-800/80">
-            {service}
+    <div className="tech-panel animate-float-up w-full rounded-3xl p-7 sm:p-9">
+      <p className="section-kicker mb-4">{"// CAPABILITIES"}</p>
+      <h2 className="section-heading text-3xl sm:text-4xl font-semibold mb-7">Built from signal to screen.</h2>
+      <ul className="space-y-3 text-left text-base sm:text-lg">
+        {services.map((service, index) => (
+          <li key={service} className="service-item flex items-center gap-4 rounded-xl px-4 py-4">
+            <span className="service-index">0{index + 1}</span><span>{service}</span>
           </li>
         ))}
       </ul>

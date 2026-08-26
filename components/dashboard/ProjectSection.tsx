@@ -63,10 +63,11 @@ export default function ProjectSection() {
     <div className="w-full px-2 py-10 sm:px-4 lg:px-0">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
-          <h2 className="mt-4 text-4xl sm:text-5xl font-bold tracking-tight text-sky-700">
-            PROJECTS
+          <p className="section-kicker">{"// SELECTED WORK"}</p>
+          <h2 className="section-heading mt-4 text-4xl sm:text-5xl font-bold tracking-tight">
+            Systems we&apos;ve engineered
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg">
+          <p className="muted-copy mx-auto mt-4 max-w-2xl text-base sm:text-lg">
             Click any project widget to open a floating PDF preview and learn more about the design.
           </p>
         </div>
@@ -77,9 +78,9 @@ export default function ProjectSection() {
               key={project.id}
               type="button"
               onClick={() => setActiveProject(project)}
-              className="group flex flex-col overflow-hidden rounded-4xl border border-sky-300 dark:bg-slate-900/90 p-4 text-left shadow-xl shadow-slate-950/30 transition duration-300 hover:-translate-y-1 hover:border-sky-300/30 hover:bg-sky-300/30 focus:outline-none focus:ring-2"
+              className="project-card group flex flex-col overflow-hidden rounded-[1.5rem] p-4 text-left transition duration-300 hover:-translate-y-1 focus:outline-none focus:ring-2"
             >
-              <div className="relative mb-4 h-48 overflow-hidden rounded-[1.75rem] bg-sky-300 ring-1 transition">
+              <div className="project-visual relative mb-5 h-48 overflow-hidden rounded-[1.1rem] transition">
                 <Image
                   src={project.image}
                   alt={project.name}
@@ -90,9 +91,9 @@ export default function ProjectSection() {
               </div>
 
               <div className="flex flex-col gap-2">
-                <span className="text-lg font-semibold text-sky-700">{project.name}</span>
-                <span className="text-sm text-slate-700">
-                  Tap to view project overview.
+                <span className="project-title text-lg font-semibold">{project.name}</span>
+                <span className="project-meta text-xs uppercase tracking-[0.08em]">
+                  View system brief ↗
                 </span>
               </div>
             </button>
@@ -103,8 +104,8 @@ export default function ProjectSection() {
       {activeProject ? (
         <div className="fixed inset-0 z-50 overflow-auto px-4 py-4 sm:px-6">
           <div className="absolute inset-0 backdrop-blur-sm" />
-          <div className="relative mx-auto w-full max-w-6xl max-h-[calc(100vh-2rem)] overflow-hidden rounded-4xl border shadow-2xl shadow-slate-950/40 bg-white">
-            <div className="flex flex-col gap-4 border-b bg-sky-700 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="modal-shell relative mx-auto w-full max-w-6xl max-h-[calc(100vh-2rem)] overflow-hidden rounded-3xl">
+            <div className="modal-header flex flex-col gap-4 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm uppercase tracking-[0.3em] text-white">Preview</p>
                 <h3 className="mt-2 text-xl font-semibold text-white">{activeProject.name}</h3>

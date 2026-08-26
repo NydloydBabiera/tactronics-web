@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { href: "#home", label: "HOME" },
@@ -17,7 +17,7 @@ const Navbar = ({title}: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-sky-600/95 shadow-lg backdrop-blur-sm text-white font-sans">
+    <nav className="site-nav fixed inset-x-0 top-0 z-50 font-sans">
       <div className="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         <a 
           href="#home" 
@@ -31,12 +31,12 @@ const Navbar = ({title}: NavbarProps) => {
           }}
           className="flex items-center gap-3 text-base sm:text-lg font-semibold tracking-tight sm:tracking-wide cursor-pointer hover:opacity-80 transition"
         >
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/10 overflow-hidden">
+            <span className="brand-mark inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl">
               <Image src="/logo.svg" alt="Tactronics logo" width={48} height={48} className="object-contain" />
             </span>
-            <span className="text-base sm:text-lg leading-6">{title}</span>
+            <span className="text-base sm:text-lg leading-6 tracking-[0.08em]">{title}</span>
           </a>
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-4">
           <div className="flex items-center gap-6 text-sm sm:text-base font-medium tracking-[0.02em]">
             {navLinks.map((link) => (
               <a
@@ -51,7 +51,7 @@ const Navbar = ({title}: NavbarProps) => {
                   }
                   window.history.pushState(null, '', link.href);
                 }}
-                className="transition hover:text-gray-200 cursor-pointer text-sm sm:text-base"
+                className="nav-link cursor-pointer text-xs"
               >
                 {link.label}
               </a>
@@ -59,12 +59,14 @@ const Navbar = ({title}: NavbarProps) => {
           </div>
         </div>
 
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
         <button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
           aria-expanded={isOpen}
           aria-label="Toggle navigation menu"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/15 bg-white/10 text-white transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/60 md:hidden"
+          className="menu-toggle inline-flex h-10 w-10 items-center justify-center rounded-lg md:hidden"
         >
           {isOpen ? (
             <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -76,9 +78,10 @@ const Navbar = ({title}: NavbarProps) => {
             </svg>
           )}
         </button>
+        </div>
       </div>
 
-      <div className={`md:hidden overflow-hidden bg-sky-700/95 transition-[max-height] duration-300 ${isOpen ? "max-h-80" : "max-h-0"}`}>
+      <div className={`mobile-menu md:hidden overflow-hidden transition-[max-height] duration-300 ${isOpen ? "max-h-80" : "max-h-0"}`}>
         <div className="space-y-1 border-t border-white/10 px-4 py-3">
           {navLinks.map((link) => (
             <a
@@ -94,7 +97,7 @@ const Navbar = ({title}: NavbarProps) => {
                 window.history.pushState(null, '', link.href);
                 setIsOpen(false);
               }}
-              className="block rounded-xl px-4 py-3 text-base font-medium text-white tracking-[0.02em] transition hover:bg-white/10 cursor-pointer"
+              className="mobile-nav-link block rounded-xl px-4 py-3 text-sm font-medium tracking-[0.08em] transition cursor-pointer"
             >
               {link.label}
             </a>

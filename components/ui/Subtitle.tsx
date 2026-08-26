@@ -7,7 +7,7 @@ interface SubtitleProps {
 
 const Subtitle: React.FC<SubtitleProps> = ({ children, className = '' }) => {
   return (
-    <p className={`text-base sm:text-lg md:text-xl lg:text-2xl font-light text-gray-600 max-w-2xl leading-relaxed ${className}`}>
+    <p className={`subtitle text-lg sm:text-xl md:text-2xl max-w-2xl leading-relaxed ${className}`}>
       {children}
     </p>
   )

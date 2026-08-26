@@ -7,7 +7,7 @@ interface PageTitleProps {
 
 const PageTitle: React.FC<PageTitleProps> = ({ children, className = '' }) => {
   return (
-    <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent tracking-tight ${className}`}>
+    <h1 className={`hero-title text-6xl sm:text-7xl md:text-8xl lg:text-[7rem] font-bold tracking-[-0.065em] ${className}`}>
       {children}
     </h1>
   )
