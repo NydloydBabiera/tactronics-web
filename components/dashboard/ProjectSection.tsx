@@ -1,64 +1,47 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 
 const projects = [
   {
     id: "Records-System",
     name: "Records System: Automatic Door Lock with Face Recognition and RFID",
     image: "/records-system.svg",
-    pdfPath: "/Record_System_Automated_Door_Lock.pdf",
+    documentUrl: "https://docs.google.com/document/d/14aXc86kdadpvQGN_z77XkhanPBw-EjgWO5GciGwXu7o/edit?usp=sharing",
   },
   {
     id: "crop-forecasting",
     name: "IoT Based Crop Field Forecasting System",
     image: "/crop-forecasting.svg",
-    pdfPath: "/Crop-Forecasting.pdf",
+    documentUrl: "https://docs.google.com/document/d/1fZcMsOsZKVqv41t5rXSWci9_7IHdmSXG0ye4F3Q5J3c/edit?usp=sharing",
   },
   {
     id: "rfid-billing",
     name: "RFID Bill and Coin Acceptor System",
     image: "/rfid-billing.svg",
-    pdfPath: "/RFID_Billing.pdf",
+    documentUrl: "https://docs.google.com/document/d/189RRoU6yrQjwpca56wbPL_AcyzPLk7MYBhrjwAattDs/edit?usp=sharing",
   },
   {
     id: "hydroponics-sensor",
     name: "Monitoring the pH and TDS Level with GSM Module in Hydroponics Farming",
     image: "/hydroponics-logo.svg",
-    pdfPath: "/Hydroponics-Sensor.pdf",
+    documentUrl: "https://docs.google.com/document/d/1gfg9AAplMT1v9J0XSE0hSQpOB7UE8NPydgW7NiJF4ME/edit?usp=sharing",
   },
   {
     id: "dry-rubber-content",
     name: "Dry Rubber Content Determination of Natural Rubber Latex Using Near-Infrared Spectometry (NIRS)",
     image: "/rubber-logo.svg",
-    pdfPath: "/Dry-Rubber-Content.pdf",
+    documentUrl: "https://docs.google.com/document/d/1HGJ2xVxesJZ1ZB8zxL9FOiXIs_iXZtJEl9KeBj2e8JE/edit?usp=sharing",
   },
   {
     id: "pineapple-sugar-level",
     name: "MEASURING SUGAR CONTENT OF DIFFERENT PINEAPPLE VARIETIES USING NEAR-INFRARED SPECTROMETRY (NIRS)",
     image: "/pineaple-logo.svg",
-    pdfPath: "/Pineapple-Sugar-Level-Measurement.pdf",
+    documentUrl: "https://docs.google.com/document/d/1DB0texPpCITQL-FDM65-AziNMXGMvTbeuaI7mTS1zws/edit?usp=sharing",
   },
 ];
 
-type Project = (typeof projects)[number];
-
-const pdfBaseUrl = process.env.NEXT_PUBLIC_PROJECT_PDF_BASE_URL;
-
-function getPdfUrl(path: string) {
-  if (!pdfBaseUrl) {
-    return path;
-  }
-
-  const normalizedBase = pdfBaseUrl.endsWith("/") ? pdfBaseUrl.slice(0, -1) : pdfBaseUrl;
-  const normalizedPath = path.startsWith("/") ? path.slice(1) : path;
-  return `${normalizedBase}/${normalizedPath}`;
-}
-
 export default function ProjectSection() {
-  const [activeProject, setActiveProject] = useState<Project | null>(null);
-
   return (
     <div className="w-full px-2 py-10 sm:px-4 lg:px-0">
       <div className="mx-auto max-w-7xl">
@@ -68,16 +51,17 @@ export default function ProjectSection() {
             Systems we&apos;ve engineered
           </h2>
           <p className="muted-copy mx-auto mt-4 max-w-2xl text-base sm:text-lg">
-            Click any project widget to open a floating PDF preview and learn more about the design.
+            Open any project brief in Google Docs to learn more about the design.
           </p>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {projects.map((project) => (
-            <button
+            <a
               key={project.id}
-              type="button"
-              onClick={() => setActiveProject(project)}
+              href={project.documentUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="project-card group flex flex-col overflow-hidden rounded-[1.5rem] p-4 text-left transition duration-300 hover:-translate-y-1 focus:outline-none focus:ring-2"
             >
               <div className="project-visual relative mb-5 h-48 overflow-hidden rounded-[1.1rem] transition">
@@ -96,39 +80,10 @@ export default function ProjectSection() {
                   View system brief ↗
                 </span>
               </div>
-            </button>
+            </a>
           ))}
         </div>
       </div>
-
-      {activeProject ? (
-        <div className="fixed inset-0 z-50 overflow-auto px-4 py-4 sm:px-6">
-          <div className="absolute inset-0 backdrop-blur-sm" />
-          <div className="modal-shell relative mx-auto w-full max-w-6xl max-h-[calc(100vh-2rem)] overflow-hidden rounded-3xl">
-            <div className="modal-header flex flex-col gap-4 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-white">Preview</p>
-                <h3 className="mt-2 text-xl font-semibold text-white">{activeProject.name}</h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setActiveProject(null)}
-                className="inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-medium text-white transition hover:border-sky-300/40 hover:bg-slate-800/90"
-              >
-                Close
-              </button>
-            </div>
-            <div className="h-[calc(100vh-14rem)] max-h-[calc(100vh-14rem)] w-full bg-white/80 sm:h-[calc(100vh-15rem)] sm:max-h-[calc(100vh-15rem)]">
-              <iframe
-                src={getPdfUrl(activeProject.pdfPath)}
-                title={`${activeProject.name} PDF preview`}
-                className="h-full w-full border-0"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </div>
-      ) : null}
     </div>
   );
 }
